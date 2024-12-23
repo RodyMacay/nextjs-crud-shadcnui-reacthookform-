@@ -1,32 +1,51 @@
-import {useClientForm} from "@/hooks/use-client-form";
-import {useEffect} from "react";
-
+'use client'
+import { useClientForm } from '@/hooks/use-client-form';
+import { LoginFormType } from '@/core/types';
 
 const LoginForm = () => {
-  const { handleSubmit, register, formState: { errors } } = useClientForm({ formType: 'login' });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useClientForm({ formType: 'login' });
 
-  useEffect(() => {
-    if (Object.keys(errors).length > 0) {
-      console.error("Errores de validación:", errors);
-    }
-  }, [errors]);
+  const onSubmit = (data: LoginFormType) => {
+    console.log('Datos del formulario de Login:', data);
+
+  };
 
   return (
-    <div>
-      <button type="button" onClick={() => {
-        // Provocar errores de validación intencionalmente
-        handleSubmit({} as any)();
-      }}>
-        Validar Login (Errores)
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div>
+        <label htmlFor="email">Correo Electrónico:</label>
+        <input
+          type="email"
+          id="email"
+          {...register('email')}
+          className={`border ${errors.email ? 'border-red-500' : 'border-gray-300'} p-2`}
+        />
+        {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
+      </div>
+
+      <div>
+        <label htmlFor="password">Contraseña:</label>
+        <input
+          type="password"
+          id="password"
+          {...register('password')}
+          className={`border ${errors.password ? 'border-red-500' : 'border-gray-300'} p-2`}
+        />
+        {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
+      </div>
+
+      <button
+        type="submit"
+        className="bg-blue-500 text-white p-2 mt-4 rounded"
+      >
+        Iniciar Sesión
       </button>
-      <button type="button" onClick={() => {
-        // Enviar datos válidos
-        handleSubmit({ email: 'test@example.com', password: 'password123' })();
-      }}>
-        Validar Login (Correcto)
-      </button>
-    </div>
+    </form>
   );
 };
 
-export default LoginForm
+export default LoginForm;
