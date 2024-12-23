@@ -1,3 +1,5 @@
+"use client";
+
 import { forwardRef } from 'react';
 import {Checkbox as NextUICheckbox} from '@nextui-org/checkbox';
 import { useFormContext } from 'react-hook-form';

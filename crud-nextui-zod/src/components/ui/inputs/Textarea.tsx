@@ -1,3 +1,5 @@
+"use client";
+
 import { forwardRef } from 'react';
 import { Textarea as NextUITextarea} from '@nextui-org/input';
 import { useFormContext } from 'react-hook-form';

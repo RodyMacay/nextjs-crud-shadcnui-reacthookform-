@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import { forwardRef } from 'react';
 import { Input as NextUIInput} from '@nextui-org/input';

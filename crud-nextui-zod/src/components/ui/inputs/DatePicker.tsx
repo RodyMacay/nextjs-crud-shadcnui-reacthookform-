@@ -1,3 +1,5 @@
+"use client";
+
 import React, { forwardRef } from 'react';
 import { DatePicker as NextUIDatePicker } from '@nextui-org/date-picker';
 import { DateValue } from "@internationalized/date";
@@ -25,7 +27,7 @@ interface DatePickerProps {
     className?: string;
 }
 
-export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(({ name, ...props }, ref) => {
+export const DatePicker = forwardRef<HTMLElement, DatePickerProps>(({ name, ...props }, ref) => {
     const { register, setValue } = useFormContext();
     const inputProps = register(name);
 

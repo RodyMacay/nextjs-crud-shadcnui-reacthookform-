@@ -8,6 +8,7 @@ export default {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./node_modules/@nextui-org/theme/dist/components/(avatar|button|checkbox|date-input|date-picker|form|image|input|select|ripple|spinner|calendar|popover|listbox|divider|scroll-shadow).js"
   ],
+  darkMode: "class",
   theme: {
     extend: {
       colors: {
