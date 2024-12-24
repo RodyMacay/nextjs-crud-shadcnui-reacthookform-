@@ -17,9 +17,9 @@ export default function Prueba() {
     };
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-gray-50 dark:bg-gray-900">
-            <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-lg">
-                <h1 className="text-2xl font-semibold text-center mb-6 text-gray-700 dark:text-gray-200">
+        <div className="flex justify-center items-center min-h-screen bg-gray-50">
+            <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
+                <h1 className="text-2xl font-semibold text-center mb-6">
                     Prueba de utilidades del formulario
                 </h1>
                 <Form onSubmit={handleSubmit(onSubmit)}>
@@ -58,6 +58,7 @@ export default function Prueba() {
                             <FormLabel htmlFor="sexo" className="text-gray-700 dark:text-gray-300">Sexo</FormLabel>
                             <Select
                                 name="sexo"
+                                className="bg-white text-black dark:bg-gray-800 dark:text-white"
                                 options={[
                                     {value: "M", label: "Masculino"},
                                     {value: "F", label: "Femenino"},
