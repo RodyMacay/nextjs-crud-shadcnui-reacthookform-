@@ -19,6 +19,10 @@ export interface DateInputProps {
     locale?: string;
     description?: string;
     errorMessage?: string;
+
+    startContent?: ReactNode;
+    endContent?: ReactNode;
+
     labelPlacement?: "inside" | "outside" | "outside-left";
     isRequired?: boolean;
     isReadOnly?: boolean;
