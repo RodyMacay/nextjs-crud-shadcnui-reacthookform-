@@ -22,7 +22,6 @@ export interface InputProps {
     isReadOnly?: boolean;
     isDisabled?: boolean;
     isInvalid?: boolean;
-    className?: string;
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(({ name, ...props }, ref) => {

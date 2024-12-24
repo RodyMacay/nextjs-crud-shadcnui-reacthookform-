@@ -24,7 +24,6 @@ export interface TextAreaProps {
     isReadOnly?: boolean;
     isDisabled?: boolean;
     isInvalid?: boolean;
-    className?: string;
 }
 
 export const Textarea = forwardRef<HTMLTextAreaElement, TextAreaProps>(

@@ -25,7 +25,6 @@ interface SelectProps<T = string | number> {
     isDisabled?: boolean;
     isInvalid?: boolean;
     options: { label: string; value: T }[];
-    className?: string;
 }
 
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(

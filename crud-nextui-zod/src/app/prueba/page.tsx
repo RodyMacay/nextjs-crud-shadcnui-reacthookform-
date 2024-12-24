@@ -8,6 +8,7 @@ import {FormField} from "@/components/ui/form/FormField";
 import {useForm} from "react-hook-form";
 import {Select} from "@/components/ui/inputs/Select";
 import {Checkbox} from "@/components/ui/inputs/Checkbox";
+import {DateInput} from "@/components/ui/inputs/DateInput";
 
 export default function Prueba() {
     const {handleSubmit} = useForm();
@@ -55,6 +56,13 @@ export default function Prueba() {
 
                     <FormField>
                         <FormItem>
+                            <FormLabel htmlFor="fecha" className="text-gray-700 dark:text-gray-300">Fecha de nacimiento</FormLabel>
+                            <DateInput name="fecha" className="bg-zinc-800 text-2xl" />
+                        </FormItem>
+                    </FormField>
+
+                    <FormField>
+                        <FormItem>
                             <FormLabel htmlFor="sexo" className="text-gray-700 dark:text-gray-300">Sexo</FormLabel>
                             <Select
                                 name="sexo"
@@ -75,6 +83,12 @@ export default function Prueba() {
                                 label="Aceptar términos"
                                 color="success"
                             />
+                        </FormItem>
+                    </FormField>
+
+                    <FormField>
+                        <FormItem>
+                            <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md">Enviar</button>
                         </FormItem>
                     </FormField>
                 </Form>

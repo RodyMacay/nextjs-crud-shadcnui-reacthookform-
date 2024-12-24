@@ -14,7 +14,6 @@ interface CheckboxProps {
     isRequired?: boolean;
     isReadOnly?: boolean;
     isDisabled?: boolean;
-    className?: string;
 }
 
 export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
