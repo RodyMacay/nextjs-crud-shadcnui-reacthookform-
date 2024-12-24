@@ -7,24 +7,24 @@ import {Input} from "@/components/ui/inputs/Input";
 import {FormField} from "@/components/ui/form/FormField";
 import {Select} from "@/components/ui/inputs/Select";
 import {Checkbox} from "@/components/ui/inputs/Checkbox";
-import {useForm} from "react-hook-form";
-import {z} from "zod";
+import {SubmitHandler, useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
+import {z} from "zod";
 
 const schema = z.object({
     email: z.string().email("Por favor ingresa un email válido").min(1, "El email es obligatorio"),
     password: z.string().min(6, "La contraseña debe tener al menos 6 caracteres"),
     name: z.string().min(1, "El nombre es obligatorio"),
-    genre: z.enum(["M", "F"], { errorMap: () => ({ message: "Por favor selecciona un género" }) }),
+    genre: z.enum(["M", "F"], {errorMap: () => ({message: "Por favor selecciona un género"})}),
     terms: z.boolean().refine((val) => val, {
         message: "Debes aceptar los términos y condiciones",
     }),
 });
 
-type FormValues = z.infer<typeof schema>;
+type FormData = z.infer<typeof schema>;
 
 export default function Prueba() {
-    const form = useForm<FormValues>({
+    const form = useForm<FormData>({
         resolver: zodResolver(schema),
         defaultValues: {
             email: "",
@@ -35,7 +35,9 @@ export default function Prueba() {
         },
     });
 
-    const onSubmit = (data: FormValues) => {
+    const {handleSubmit, formState: {errors}} = form;
+
+    const onSubmit: SubmitHandler<FormData> = (data) => {
         console.log("Datos enviados:", data);
     };
 
@@ -45,25 +47,34 @@ export default function Prueba() {
                 <h1 className="text-2xl font-semibold text-center mb-6">
                     Prueba de utilidades del formulario
                 </h1>
-                <Form {...form} onSubmitAction={onSubmit}>
+                <Form<FormData> form={form} onSubmit={handleSubmit(onSubmit)}>
                     <FormField>
                         <FormItem>
                             <FormLabel htmlFor="email">Email</FormLabel>
-                            <Input type="email" name="email"/>
+                            <Input type="email" name="email"
+                                   errorMessage={errors.email?.message}
+                                   isInvalid={!!errors.email}
+                            />
                         </FormItem>
                     </FormField>
 
                     <FormField>
                         <FormItem>
                             <FormLabel htmlFor="password">Password</FormLabel>
-                            <Input type="password" name="password"/>
+                            <Input type="password" name="password"
+                                   errorMessage={errors.password?.message}
+                                   isInvalid={!!errors.password}
+                            />
                         </FormItem>
                     </FormField>
 
                     <FormField>
                         <FormItem>
                             <FormLabel htmlFor="name">Nombre</FormLabel>
-                            <Input type="text" name="name"/>
+                            <Input type="text" name="name"
+                                   errorMessage={errors.name?.message}
+                                   isInvalid={!!errors.name}
+                            />
                         </FormItem>
                     </FormField>
 
@@ -76,6 +87,8 @@ export default function Prueba() {
                                     {value: "M", label: "Masculino"},
                                     {value: "F", label: "Femenino"},
                                 ]}
+                                errorMessage={errors.genre?.message}
+                                isInvalid={!!errors.genre}
                             />
                         </FormItem>
                     </FormField>

@@ -1,8 +1,8 @@
 "use client";
 
 import { ReactNode, forwardRef } from 'react';
-import { Input as NextUIInput} from '@nextui-org/input';
-import { useFormContext } from 'react-hook-form';
+import { Input as NextUIInput } from '@nextui-org/input';
+import {useController, useFormContext} from 'react-hook-form';
 
 export interface InputProps {
     name: string;
@@ -24,18 +24,27 @@ export interface InputProps {
     isInvalid?: boolean;
 }
 
-export const Input = forwardRef<HTMLInputElement, InputProps>(({ name, ...props }, ref) => {
-    const { register } = useFormContext();
-    const {...registerProps } = register(name);
+export const Input = forwardRef<HTMLInputElement, InputProps>(
+    ({ name, ...props }, ref) => {
+        const { control } = useFormContext();
 
-    return (
-        <NextUIInput
-            {...registerProps}
-            {...props}
-            id={name}
-            ref={ref}
-        />
-    );
-});
+        const {field: { value, onChange },} = useController({
+            name,
+            control,
+            defaultValue: false,
+        });
+
+        return (
+            <NextUIInput
+                id={name}
+                checked={value}
+                label={props.label ?? name}
+                onChange={(e) => onChange(e.target.value)}
+                {...props}
+                ref={ref}
+            />
+        );
+    }
+);
 
 Input.displayName = 'Input';
