@@ -1,39 +1,40 @@
 "use client";
 
-import { forwardRef } from 'react';
-import { Textarea as NextUITextarea} from '@nextui-org/input';
-import { useFormContext } from 'react-hook-form';
+import {ReactNode, forwardRef} from 'react';
+import {Textarea as NextUITextarea} from '@nextui-org/input';
+import {useFormContext} from 'react-hook-form';
 
 export interface TextAreaProps {
     name: string;
-    label?: string;
-    placeholder?: string;
-    defaultValue?: string;
-
+    minRows?: number;
+    maxRows?: number;
+    cacheMeasurements?: boolean;
     variant?: "flat" | "bordered" | "faded" | "underlined";
     color?: "default" | "primary" | "secondary" | "success" | "warning" | "danger";
     size?: "sm" | "md" | "lg";
     radius?: "none" | "sm" | "md" | "lg" | "full";
-
-    isInvalid?: boolean;
+    label?: string;
+    defaultValue?: string;
+    placeholder?: string;
+    startContent?: ReactNode;
+    endContent?: ReactNode;
+    description?: string;
+    errorMessage?: string;
     isRequired?: boolean;
     isReadOnly?: boolean;
     isDisabled?: boolean;
-
-    minRows?: number;
-    maxRows?: number;
-    description?: string;
-    errorMessage?: string;
+    isInvalid?: boolean;
     className?: string;
 }
 
 export const Textarea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
-    ({ name, ...props }, ref) => {
-        const { register } = useFormContext();
-        const { onChange, ...registerProps } = register(name);
+    ({name, ...props}, ref) => {
+        const {register} = useFormContext();
+        const {onChange, ...registerProps} = register(name);
 
         return (
             <NextUITextarea
+                id={name}
                 {...registerProps}
                 {...props}
                 onChange={onChange}
