@@ -33,7 +33,6 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
 
         return (
             <NextUITextarea
-                id={name}
                 {...registerProps}
                 {...props}
                 onChange={onChange}

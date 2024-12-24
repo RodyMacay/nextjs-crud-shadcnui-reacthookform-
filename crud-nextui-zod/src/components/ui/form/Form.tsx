@@ -1,19 +1,19 @@
-"use client";
+import React, { ReactNode } from 'react';
+import { useForm, FormProvider, UseFormProps, FieldValues } from 'react-hook-form';
 
-import React from 'react';
-import { ReactNode } from 'react';
-import { useForm, FormProvider, UseFormProps } from 'react-hook-form';
-
-interface FormProps extends UseFormProps {
+interface FormProps<T extends FieldValues> extends UseFormProps<T> {
     children: ReactNode;
-    onSubmit: (e?: React.BaseSyntheticEvent) => Promise<void> | void;
+    onSubmitAction: (data: T) => void;
 }
 
-export function Form({ children, ...props }: FormProps) {
-    const methods = useForm(props);
+
+export function Form<T extends FieldValues>({children, onSubmitAction, ...props}: FormProps<T>) {
+    const form = useForm<T>(props);
+    const { handleSubmit } = form;
+
     return (
-        <FormProvider {...methods}>
-            <form {...props}>
+        <FormProvider {...form}>
+            <form onSubmit={handleSubmit(onSubmitAction)}>
                 {children}
             </form>
         </FormProvider>

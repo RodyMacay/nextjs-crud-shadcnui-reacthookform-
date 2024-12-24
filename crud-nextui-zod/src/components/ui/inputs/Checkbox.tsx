@@ -1,12 +1,12 @@
 "use client";
 
-import {forwardRef, ReactNode} from 'react';
-import {Checkbox as NextUICheckbox} from '@nextui-org/checkbox';
-import { useFormContext } from 'react-hook-form';
+import { forwardRef, ReactNode } from 'react';
+import { Checkbox as NextUICheckbox } from '@nextui-org/checkbox';
+import { useFormContext, useController } from 'react-hook-form';
 
 interface CheckboxProps {
     name: string;
-    label: ReactNode;
+    label?: ReactNode;
     size?: "sm" | "md" | "lg";
     color?: "default" | "primary" | "success" | "warning" | "danger";
     radius?: "none" | "sm" | "md" | "lg" | "full";
@@ -18,9 +18,23 @@ interface CheckboxProps {
 
 export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
     ({ name, ...props }, ref) => {
-        const { register } = useFormContext();
+        const { control } = useFormContext();
+
+        const {field: { value, onChange },} = useController({
+            name,
+            control,
+            defaultValue: false,
+        });
+
         return (
-            <NextUICheckbox id={name} {...register(name)} {...props} ref={ref}></NextUICheckbox>
+            <NextUICheckbox
+                id={name}
+                checked={value}
+                label={props.label ?? name}
+                onChange={(e) => onChange(e.target.checked)}
+                {...props}
+                ref={ref}
+            />
         );
     }
 );

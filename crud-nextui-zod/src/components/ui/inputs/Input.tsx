@@ -26,13 +26,13 @@ export interface InputProps {
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(({ name, ...props }, ref) => {
     const { register } = useFormContext();
-    const { onChange, ...inputProps } = register(name);
+    const {...registerProps } = register(name);
+
     return (
         <NextUIInput
-            {...inputProps}
+            {...registerProps}
             {...props}
             id={name}
-            onChange={onChange}
             ref={ref}
         />
     );
