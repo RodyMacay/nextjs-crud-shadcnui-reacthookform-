@@ -17,6 +17,7 @@ import { CheckboxWithText } from "@/components/ui/inputs/Checkbox";
 import { termsItems } from "@/services/items";
 import { SwitchWithLabel } from "@/components/ui/inputs/Switch";
 import { TextareaWithText } from "@/components/ui/inputs/Textarea";
+import { FormFieldProvider } from "@/components/ui/form/hooks";
 
 const schema = z.object({
   name: z.string().min(2, {
@@ -71,6 +72,7 @@ const HolaPage = () => {
                 name="name"
                 control={form.control}
                 render={({ field }) => (
+                  <FormFieldProvider name={field.name}>
                   <FormItem>
                     <FormLabel className="flex items-center gap-2 text-base">
                       <User className="h-4 w-4" />
@@ -85,6 +87,7 @@ const HolaPage = () => {
                     </FormControl>
                     <FormMessage className="text-sm" />
                   </FormItem>
+                  </FormFieldProvider>
                 )}
               />
 
@@ -92,6 +95,7 @@ const HolaPage = () => {
                 name="email"
                 control={form.control}
                 render={({ field }) => (
+                  <FormFieldProvider name={field.name}>
                   <FormItem>
                     <FormLabel className="flex items-center gap-2 text-base">
                       <Mail className="h-4 w-4" />
@@ -106,6 +110,7 @@ const HolaPage = () => {
                     </FormControl>
                     <FormMessage className="text-sm" />
                   </FormItem>
+                  </FormFieldProvider>
                 )}
               />
 
@@ -113,6 +118,7 @@ const HolaPage = () => {
                 name="picture"
                 control={form.control}
                 render={({ field }) => (
+                  <FormFieldProvider name={field.name}>
                   <FormItem>
                     <FormLabel className="flex items-center gap-2 text-base">
                       <Upload className="h-4 w-4" />
@@ -129,6 +135,7 @@ const HolaPage = () => {
                     </FormControl>
                     <FormMessage className="text-sm" />
                   </FormItem>
+                  </FormFieldProvider>
                 )}
               />
 
@@ -136,6 +143,7 @@ const HolaPage = () => {
                 name="terms"
                 control={form.control}
                 render={({ field }) => (
+                  <FormFieldProvider name={field.name}>
                   <FormItem>
                     <FormLabel className="flex items-center gap-2 text-base">
                       Acepta los siguientes términos
@@ -155,6 +163,7 @@ const HolaPage = () => {
                     </FormControl>
                     <FormMessage className="text-sm" />
                   </FormItem>
+                  </FormFieldProvider>
                 )}
               />
 
@@ -162,6 +171,7 @@ const HolaPage = () => {
                 name="airplaneMode"
                 control={form.control}
                 render={({ field }) => (
+                  <FormFieldProvider name={field.name}>
                   <FormItem>
                     <FormLabel className="flex items-center gap-2 text-base">
                       Airplane Mode
@@ -176,6 +186,7 @@ const HolaPage = () => {
                     </FormControl>
                     <FormMessage className="text-sm" />
                   </FormItem>
+                  </FormFieldProvider>
                 )}
               />
 
@@ -183,6 +194,7 @@ const HolaPage = () => {
                 name="message"
                 control={form.control}
                 render={({ field, fieldState }) => (
+                  <FormFieldProvider name={field.name}>
                   <FormItem>
                     <FormLabel className="flex items-center gap-2 text-base">
                       Your Message
@@ -200,6 +212,7 @@ const HolaPage = () => {
                     </FormControl>
                     <FormMessage className="text-sm" />
                   </FormItem>
+                  </FormFieldProvider>
                 )}
               />
 
