@@ -1,45 +1,24 @@
-"use client";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { loginSchema, registerSchema } from "@/lib/validations";
+import { LoginFormType, RegisterFormType } from "@/core/types";
 
-import * as React from "react";
-import { useFormContext } from "react-hook-form";
+type FormType = "login" | "register";
 
-type FormFieldContextValue = {
-  name: string;
+interface UseClientFormProps {
+  formType: FormType;
+  defaultValues?: LoginFormType | RegisterFormType;
+  mode?: "onChange" | "onBlur" | "onSubmit";
+}
+
+
+export const useClientForm = ({ formType, mode = 'onBlur', defaultValues }: UseClientFormProps) => {
+  const schema = formType === 'login' ? loginSchema : registerSchema;
+
+  return useForm<z.infer<typeof schema>>({
+    resolver: zodResolver(schema),
+    defaultValues: defaultValues as z.infer<typeof registerSchema> | z.infer<typeof loginSchema>, 
+    mode,
+  });
 };
-
-const FormFieldContext = React.createContext<FormFieldContextValue | undefined>(
-    undefined
-) as React.Context<FormFieldContextValue | undefined>;
-  
-
-export const useFormField = () => {
-  const fieldContext = React.useContext(FormFieldContext);
-  const { getFieldState, formState } = useFormContext();
-
-  if (!fieldContext) {
-    throw new Error("useFormField debe usarse dentro de <FormField>");
-  }
-
-  const fieldState = getFieldState(fieldContext.name, formState);
-  const error = fieldState?.error || null;
-
-  return {
-    ...fieldState,
-    error,
-    name: fieldContext.name,
-  };
-};
-
-export const FormFieldProvider: React.FC<{ name: string }> = ({
-    name,
-    children,
-  }) => {
-    const contextValue = { name };
-  
-    return (
-      <FormFieldContext.Provider value={contextValue}>
-        {children}
-      </FormFieldContext.Provider>
-    );
-  };
-  
