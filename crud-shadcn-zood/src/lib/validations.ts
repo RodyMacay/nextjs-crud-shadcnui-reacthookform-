@@ -61,9 +61,11 @@ export const registerSchema = z
       .refine((file) => !file || validateImage(file), {
         message: "El archivo debe ser una imagen válida de no más de 5 MB",
       }),
-    termAccepted: z.boolean().refine((val) => val === true, {
-      message: "Debes aceptar los términos y condiciones",
-    }),
+    termAccepted: z
+        .boolean()
+        .refine(val => val, {
+            message: "Debes aceptar los terminos y condiciones"
+        }),
     socialNetwork: z
       .string()
       .regex(urlRegex, {

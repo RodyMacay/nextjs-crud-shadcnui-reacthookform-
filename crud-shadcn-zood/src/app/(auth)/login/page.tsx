@@ -9,10 +9,19 @@ import { FormMessage } from "@/components/ui/form/FormMessage";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { LoginFormType } from "@/core/types";
 
+export type LoginFormType = {
+  email: string;
+  password: string;
+};
 export default function LoginPage() {
-  const form = useClientForm({ formType: 'login' });
+  const form = useClientForm<LoginFormType>({
+    formType: 'login',
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
 
   const onSubmit = (data: LoginFormType) => {
     console.log('Login data:', data);
@@ -34,7 +43,7 @@ export default function LoginPage() {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <Input {...field} type="email" />
-                    <FormMessage />
+                    <FormMessage error={form.formState.errors.email?.message} />
                   </FormItem>
                 )}
               />
@@ -46,7 +55,7 @@ export default function LoginPage() {
                   <FormItem>
                     <FormLabel>Contraseña</FormLabel>
                     <Input {...field} type="password" />
-                    <FormMessage />
+                    <FormMessage error={form.formState.errors.password?.message} />
                   </FormItem>
                 )}
               />

@@ -29,6 +29,7 @@ export default function RegisterPage() {
     phone: "",
     image: null,
   });
+  console.log(form.formState.errors)
 
   const OnSubmit: SubmitHandler<RegisterFormType> = (data) => {
     console.log("Register data:" + data);
@@ -56,10 +57,11 @@ export default function RegisterPage() {
                   name="firstName"
                   control={form.control}
                   render={({ field }) => (
-                    <FormItem>
+                    <FormItem >
+
                       <FormLabel>Nombre</FormLabel>
                       <Input {...field} />
-                      <FormMessage />
+                      <FormMessage error={form.formState.errors.firstName?.message} />
                     </FormItem>
                   )}
                 />
@@ -68,9 +70,10 @@ export default function RegisterPage() {
                   control={form.control}
                   render={({ field }) => (
                     <FormItem>
+
                       <FormLabel>Apellido</FormLabel>
                       <Input {...field} />
-                      <FormMessage />
+                      <FormMessage error={form.formState.errors.lastName?.message} />
                     </FormItem>
                   )}
                 />
@@ -83,7 +86,7 @@ export default function RegisterPage() {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <Input {...field} type="email" />
-                    <FormMessage />
+                    <FormMessage error={form.formState.errors.email?.message} />
                   </FormItem>
                 )}
               />
@@ -96,7 +99,7 @@ export default function RegisterPage() {
                     <FormItem>
                       <FormLabel>Contraseña</FormLabel>
                       <Input {...field} type="password" />
-                      <FormMessage />
+                      <FormMessage error={form.formState.errors.password?.message} />
                     </FormItem>
                   )}
                 />
@@ -107,7 +110,7 @@ export default function RegisterPage() {
                     <FormItem>
                       <FormLabel>Confirmar Contraseña</FormLabel>
                       <Input {...field} type="password" />
-                      <FormMessage />
+                      <FormMessage error={form.formState.errors.confirmPassword?.message} />
                     </FormItem>
                   )}
                 />
@@ -121,7 +124,7 @@ export default function RegisterPage() {
                     <FormItem>
                       <FormLabel>Fecha de Nacimiento</FormLabel>
                       <Input {...field} type="date" />
-                      <FormMessage />
+                      <FormMessage error={form.formState.errors.birthDate?.message} />
                     </FormItem>
                   )}
                 />
@@ -142,7 +145,7 @@ export default function RegisterPage() {
                         <option value="Femenino">Femenino</option>
                         <option value="Otros">Otros</option>
                       </select>
-                      <FormMessage />
+                      <FormMessage error={form.formState.errors.gender?.message} />
                     </FormItem>
                   )}
                 />
@@ -156,7 +159,7 @@ export default function RegisterPage() {
                     <FormItem>
                       <FormLabel>País</FormLabel>
                       <Input {...field} placeholder="Ingrese su país" />
-                      <FormMessage />
+                      <FormMessage error={form.formState.errors.country?.message} />
                     </FormItem>
                   )}
                 />
@@ -168,7 +171,7 @@ export default function RegisterPage() {
                     <FormItem>
                       <FormLabel>Teléfono</FormLabel>
                       <Input {...field} placeholder="+593..." />
-                      <FormMessage />
+                      <FormMessage error={form.formState.errors.phone?.message} />
                     </FormItem>
                   )}
                 />
@@ -186,7 +189,7 @@ export default function RegisterPage() {
                         type="number"
                         onChange={(e) => field.onChange(Number(e.target.value))}
                       />
-                      <FormMessage />
+                      <FormMessage error={form.formState.errors.weight?.message} />
                     </FormItem>
                   )}
                 />
@@ -199,7 +202,7 @@ export default function RegisterPage() {
                   <FormItem>
                     <FormLabel>Red Social</FormLabel>
                     <Input {...field} placeholder="https://..." />
-                    <FormMessage />
+                    <FormMessage error={form.formState.errors.socialNetwork?.message} />
                   </FormItem>
                 )}
               />
@@ -216,7 +219,7 @@ export default function RegisterPage() {
                         field.onChange(file);
                       }}
                     />
-                    <FormMessage />
+                    <FormMessage error={form.formState.errors.image?.message} />
                   </FormItem>
                 )}
               />
@@ -233,14 +236,14 @@ export default function RegisterPage() {
                           {
                             id: "terms",
                             label: "Acepto los términos y condiciones",
-                            description:
-                              "Al registrarte, aceptas nuestros términos de servicio y política de privacidad.",
+                            description: "Al registrarte, aceptas nuestros términos de servicio y política de privacidad.",
                           },
                         ]}
-                        onChange={() => field.onChange(!field.value)}
+                        value={field.value} // Vincula el valor actual del formulario
+                        onChange={field.onChange} // Actualiza el estado del formulario
                       />
                     </div>
-                    <FormMessage />
+                    <FormMessage error={form.formState.errors.termAccepted?.message} />
                   </FormItem>
                 )}
               />
